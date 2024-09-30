@@ -6,7 +6,7 @@ public class Main {
         ScriptService scriptService = ScriptService.getINSTANCE();
 
         scriptService.getAllCompanies().forEach(company->
-                System.out.println(company.getName()));
+                System.out.println(company.getCompanyId()));
 
     }
 }
