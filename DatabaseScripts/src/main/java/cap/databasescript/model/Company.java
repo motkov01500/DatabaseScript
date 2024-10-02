@@ -1,15 +1,20 @@
-package cap.databasescript;
+package cap.databasescript.model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name = "company")
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Company {
 
     @Id
@@ -40,4 +45,22 @@ public class Company {
     @OneToMany(fetch=FetchType.LAZY, cascade={CascadeType.REFRESH})
     @JoinTable(name="company_rel_location", joinColumns={ @JoinColumn(name="company_id", referencedColumnName="company_id") } , inverseJoinColumns={ @JoinColumn(name="location_id") } )
     private List<CompanyLocation> companyLocations;
+
+    public void addLocation(CompanyLocation location) {
+        if (this.companyLocations == null) {
+            companyLocations = new ArrayList<>();
+        }
+        companyLocations.add(location);
+    }
+
+
+    @Override
+    public String toString() {
+        return "Company{" +
+                "primaryCompanyId=" + primaryCompanyId +
+                ", country='" + country + '\'' +
+                ", city='" + city + '\'' +
+                ", postalCode='" + postalCode + '\'' +
+                '}';
+    }
 }
