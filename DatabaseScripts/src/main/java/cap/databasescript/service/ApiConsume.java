@@ -18,8 +18,8 @@ import java.util.Map;
 public class ApiConsume {
 
     private static ApiConsume INSTANCE;
-    private final String API_KEY = "sbb1ZrQiD2RdtyXyrAhFXen4G2d6N41J";
     private CompanyService companyService = CompanyService.getINSTANCE();
+    private final String API_KEY = "AtqjjGJpGuNxwWOxBMYlDM5JYZ7tqn3r";
     private RecruiterService recruiterService = RecruiterService.getINSTANCE();
     private ApiConsume() {
     }
@@ -36,7 +36,8 @@ public class ApiConsume {
         try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
             for (Company key  : companies.keySet()) {
                 String userInput = companies.get(key).replaceAll("\\s+", ",");
-                HttpGet request = new HttpGet("https://api.tomtom.com/search/2/search/" + userInput + ".json?key=" + API_KEY + "&idxSet=PAD&maxFuzzyLevel=1");
+                System.out.println(userInput);
+                HttpGet request = new HttpGet("https://api.tomtom.com/search/2/geocode/" + userInput + ".json?key=" + API_KEY + "&idxSet=PAD&maxFuzzyLevel=1");
 
                 CloseableHttpResponse response = httpClient.execute(request);
                 HttpEntity entity = response.getEntity();

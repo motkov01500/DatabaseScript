@@ -67,7 +67,10 @@ public class CompanyService extends ScriptService<Company> {
                 locationPosition.getCompany().getPostalCode(),
                 CompanyLocationType.MAIN
         );
-        locationService.createLocation(companyLocation);
+        CompanyLocation mainLocation = locationService.createLocation(companyLocation);
+        Company currentCompany = locationPosition.getCompany();
+        currentCompany.addLocation(mainLocation);
+        update(currentCompany);
         return "new location is created";
     }
 }
